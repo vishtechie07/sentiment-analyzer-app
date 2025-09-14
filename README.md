@@ -228,7 +228,7 @@ The code is organized to make it easy to add new features:
 
 ## Contributing
 
-We welcome contributions! Here's how:
+I welcome contributions! Here's how:
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
@@ -309,14 +309,6 @@ This project is open source under the MIT License. See the [LICENSE](LICENSE) fi
 - [Spring Boot](https://spring.io/projects/spring-boot) for the excellent framework
 - [Tailwind CSS](https://tailwindcss.com/) for the beautiful UI components
 
-## Support
-
-Need help? Here are your options:
-
-1. Check the existing [Issues](https://github.com/yourusername/sentiment-analyzer-app/issues)
-2. Create a new issue with details about your problem
-3. Reach out to the maintainers
-
 ## Changelog
 
 ### Version 1.0.0
@@ -326,7 +318,6 @@ Need help? Here are your options:
 - REST API
 - History tracking
 - Local storage
-
 ---
 
 **Built with ❤️ by Vishnu using Spring Boot and Stanford CoreNLP**
