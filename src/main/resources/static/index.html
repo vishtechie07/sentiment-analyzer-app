@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analyzer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        success: '#10B981',
+                        danger: '#EF4444',
+                        warning: '#F59E0B'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .history-item {
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .history-item:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">Sentiment Analyzer</h1>
+            <p class="text-lg text-gray-600">Analyze the emotional tone of your text using natural language processing</p>
+            
+            <!-- Analysis Counter -->
+            <div class="mt-4 inline-block bg-blue-100 text-blue-800 px-4 py-2 rounded-full">
+                <span class="font-semibold">Total Analyses: </span>
+                <span id="analysisCounter" class="font-bold text-xl">0</span>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="max-w-4xl mx-auto">
+            <!-- Input Section -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">Enter Your Text</h2>
+                <div class="space-y-4">
+                    <textarea 
+                        id="textInput" 
+                        placeholder="Type or paste your text here to analyze its sentiment..."
+                        class="w-full h-32 p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
+                    ></textarea>
+                    <div class="flex justify-between items-center">
+                        <span id="charCount" class="text-sm text-gray-500">0 characters</span>
+                        <button 
+                            id="analyzeBtn" 
+                            class="bg-primary hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg transition duration-200 flex items-center space-x-2"
+                        >
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                            <span>Analyze Sentiment</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div id="resultsSection" class="bg-white rounded-lg shadow-lg p-6 hidden">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">Analysis Results</h2>
+                <div class="space-y-6">
+                    <!-- Sentiment Display -->
+                    <div class="text-center">
+                        <div id="sentimentIcon" class="text-6xl mb-4">😐</div>
+                        <div id="sentimentText" class="text-3xl font-bold mb-2">Neutral</div>
+                        <div id="confidenceText" class="text-lg text-gray-600">Confidence: 0%</div>
+                    </div>
+
+                    <!-- Original Text -->
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">Original Text:</h3>
+                        <div id="originalText" class="bg-gray-50 p-4 rounded-lg text-gray-700"></div>
+                    </div>
+
+                    <!-- Analysis Details -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-gray-50 p-4 rounded-lg text-center">
+                            <div class="text-2xl font-bold text-green-600" id="positiveScore">0</div>
+                            <div class="text-sm text-gray-600">Positive</div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg text-center">
+                            <div class="text-2xl font-bold text-gray-600" id="neutralScore">0</div>
+                            <div class="text-sm text-gray-600">Neutral</div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg text-center">
+                            <div class="text-2xl font-bold text-red-600" id="negativeScore">0</div>
+                            <div class="text-sm text-gray-600">Negative</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading Section -->
+            <div id="loadingSection" class="bg-white rounded-lg shadow-lg p-6 text-center hidden">
+                <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-primary mx-auto mb-4"></div>
+                <p class="text-lg text-gray-600">Analyzing your text...</p>
+            </div>
+
+            <!-- Error Section -->
+            <div id="errorSection" class="bg-red-50 border border-red-200 rounded-lg p-6 text-center hidden">
+                <div class="text-red-600 text-6xl mb-4">⚠️</div>
+                <h3 class="text-xl font-semibold text-red-800 mb-2">Analysis Error</h3>
+                <p id="errorMessage" class="text-red-600">Something went wrong while analyzing your text.</p>
+                <button id="retryBtn" class="mt-4 bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded-lg transition duration-200">
+                    Try Again
+                </button>
+            </div>
+
+            <!-- History Section -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl font-semibold text-gray-800">Analysis History</h2>
+                    <button 
+                        id="clearHistoryBtn" 
+                        class="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-200 text-sm"
+                    >
+                        Clear History
+                    </button>
+                </div>
+                <div id="historyContainer" class="space-y-3">
+                    <p class="text-gray-500 text-center py-4">No analyses yet. Start by analyzing some text!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-12 text-gray-500">
+            <p>Built with Spring Boot, Stanford CoreNLP, and Tailwind CSS</p>
+        </div>
+    </div>
+
+    <script src="js/sentiment-analyzer.js"></script>
+</body>
+</html>
