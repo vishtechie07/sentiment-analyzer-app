@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -34,7 +33,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             // Disable CSRF for API endpoints (since we're using JSON)
-            .csrf(AbstractHttpConfigurer::disable)
+            .csrf(csrf -> csrf.disable())
             
             // Configure CORS
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
@@ -50,11 +49,11 @@ public class SecurityConfig {
             // Configure HTTP Basic authentication
             .httpBasic(basic -> {})
             
-            // Configure security headers
+            // Configure security headers (Spring Security 6.1+ lambda DSL)
             .headers(headers -> headers
-                .frameOptions().deny()
-                .contentTypeOptions().and()
-                .httpStrictTransportSecurity(hstsConfig -> hstsConfig
+                .frameOptions(frame -> frame.deny())
+                .contentTypeOptions(contentType -> {})
+                .httpStrictTransportSecurity(hsts -> hsts
                     .maxAgeInSeconds(31536000)
                 )
                 .referrerPolicy(referrer -> referrer

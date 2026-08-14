@@ -1,7 +1,6 @@
 package com.sentiment.analyzer.service;
 
 import com.sentiment.analyzer.dto.SentimentResponse;
-import com.sentiment.analyzer.service.SentimentAnalysisService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
