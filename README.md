@@ -12,6 +12,67 @@ Ever wondered if your text sounds positive, negative, or neutral? This app helps
 
 The app breaks down text sentence by sentence and gives you scores for positive, negative, and neutral tones, plus an overall sentiment with confidence level.
 
+<!-- MEDIA:START -->
+## Screenshots & Demo
+
+Generated with `scripts/capture-media.mjs` (run while the app is up on port 8080).
+
+### Demo walkthrough
+
+![Sentiment Analyzer demo](docs/media/demo.gif)
+
+Covers: empty home → empty-input validation → positive / negative / neutral analysis → history.
+
+### Scenario screenshots
+
+#### Home (empty state)
+
+![Home (empty state)](docs/media/01-home-empty.png)
+
+#### Validation error (empty submit)
+
+![Validation error (empty submit)](docs/media/02-validation-error.png)
+
+#### Positive sentiment
+
+![Positive sentiment](docs/media/03-positive-result.png)
+
+Example text: *This product is absolutely wonderful! I love how easy it is to use and the support team was fantastic.*
+
+#### Negative sentiment
+
+![Negative sentiment](docs/media/04-negative-result.png)
+
+Example text: *This was a terrible experience. The service was awful and I am extremely disappointed.*
+
+#### Neutral sentiment
+
+![Neutral sentiment](docs/media/05-neutral-result.png)
+
+Example text: *The package arrived on Tuesday. It contains the items listed in the order confirmation.*
+
+#### History with mixed results
+
+![History with mixed results](docs/media/06-history-populated.png)
+
+<details>
+<summary>Regenerate media</summary>
+
+```bash
+# Terminal 1 — start the app
+mvn spring-boot:run
+
+# Terminal 2 — capture screenshots + GIF and refresh README
+cd scripts
+npm install
+npx playwright install chromium
+npm run media
+```
+
+</details>
+
+<!-- MEDIA:END -->
+
 ## Features
 
 - **Real-time Analysis**: Get results instantly as you type
@@ -46,7 +107,7 @@ The app breaks down text sentence by sentence and gives you scores for positive,
 
 1. **Get the code**
    ```bash
-   git clone https://github.com/yourusername/sentiment-analyzer-app.git
+   git clone https://github.com/vishtechie07/sentiment-analyzer-app.git
    cd sentiment-analyzer-app
    ```
 
@@ -313,7 +374,7 @@ This project is open source under the MIT License. See the [LICENSE](LICENSE) fi
 
 Need help? Here are your options:
 
-1. Check the existing [Issues](https://github.com/yourusername/sentiment-analyzer-app/issues)
+1. Check the existing [Issues](https://github.com/vishtechie07/sentiment-analyzer-app/issues)
 2. Create a new issue with details about your problem
 3. Reach out to the maintainers
 

@@ -90,6 +90,10 @@ application-local.properties
 application-dev.properties
 application-prod.properties
 
+# Media capture scripts
+scripts/node_modules/
+docs/media/gif-frames/
+
 # Logs
 logs/
 *.log.*

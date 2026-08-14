@@ -1,0 +1,7 @@
+# Generated media (do not edit by hand)
+
+Regenerate with:
+
+```bash
+cd scripts && npm run media
+```

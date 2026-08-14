@@ -1,0 +1,17 @@
+{
+  "name": "sentiment-analyzer-media-scripts",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "capture": "node capture-media.mjs",
+    "update-readme": "node update-readme.mjs",
+    "media": "node capture-media.mjs && node update-readme.mjs"
+  },
+  "dependencies": {
+    "gif-encoder-2": "^1.0.5",
+    "pngjs": "^7.0.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.49.0"
+  }
+}

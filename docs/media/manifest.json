@@ -1,0 +1,50 @@
+{
+  "generatedAt": "2026-08-14T02:34:53.266Z",
+  "baseUrl": "http://localhost:8080",
+  "screenshots": [
+    {
+      "id": "01-home-empty",
+      "title": "Home (empty state)",
+      "text": null,
+      "action": "idle",
+      "file": "01-home-empty.png"
+    },
+    {
+      "id": "02-validation-error",
+      "title": "Validation error (empty submit)",
+      "text": "",
+      "action": "error",
+      "file": "02-validation-error.png"
+    },
+    {
+      "id": "03-positive-result",
+      "title": "Positive sentiment",
+      "text": "This product is absolutely wonderful! I love how easy it is to use and the support team was fantastic.",
+      "action": "analyze",
+      "file": "03-positive-result.png"
+    },
+    {
+      "id": "04-negative-result",
+      "title": "Negative sentiment",
+      "text": "This was a terrible experience. The service was awful and I am extremely disappointed.",
+      "action": "analyze",
+      "file": "04-negative-result.png"
+    },
+    {
+      "id": "05-neutral-result",
+      "title": "Neutral sentiment",
+      "text": "The package arrived on Tuesday. It contains the items listed in the order confirmation.",
+      "action": "analyze",
+      "file": "05-neutral-result.png"
+    },
+    {
+      "id": "06-history-populated",
+      "title": "History with mixed results",
+      "text": null,
+      "action": "history",
+      "file": "06-history-populated.png"
+    }
+  ],
+  "gif": "demo.gif",
+  "frameCount": 8
+}
